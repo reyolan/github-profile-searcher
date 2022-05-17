@@ -1,26 +1,10 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
 
+//gawa tayo top bar, which has the title and then upper right may dark mode
+// then sa gitna is may search bar tayo
+// sa baba ng search bar meron tayong card na pinapakita yung information
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  return <div className="App"></div>;
 }
 
 export default App;
