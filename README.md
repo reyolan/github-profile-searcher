@@ -1,7 +1,5 @@
 # Github Profile Searcher
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
 ## Description
 
 This search app is inspired by the idea in this [repo].(https://github.com/florinpop17/app-ideas/blob/master/Projects/2-Intermediate/GitHub-Profiles.md) The app shall be able to search for github profiles via their usernames and see their avatar, username, followers and repository count.
