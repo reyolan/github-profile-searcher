@@ -10,7 +10,7 @@ const useStyles = createStyles(theme => ({
   },
 }));
 
-function Topbar() {
+function Topbar(): JSX.Element {
   const { classes } = useStyles();
   return (
     <Header className={classes.wrapper} height={64}>

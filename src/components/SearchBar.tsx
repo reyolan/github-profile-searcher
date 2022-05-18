@@ -1,7 +1,6 @@
-import { useEffect } from "react";
+import { Dispatch, SetStateAction, ChangeEvent, KeyboardEvent } from "react";
 import { Input, createStyles, InputWrapper } from "@mantine/core";
 import { Search } from "tabler-icons-react";
-import postRequest from "../utils/api";
 
 const useStyles = createStyles(theme => ({
   input: {
@@ -11,12 +10,13 @@ const useStyles = createStyles(theme => ({
   },
 }));
 
-function SearchBar() {
-  const { classes } = useStyles();
+type SearchBarProps = {
+  setSearchInput: Dispatch<SetStateAction<string>>;
+  onSubmit: (e: KeyboardEvent<HTMLInputElement>) => void;
+};
 
-  useEffect(() => {
-    const req = postRequest("reyolan").then(res => console.log(res));
-  }, []);
+function SearchBar({ setSearchInput, onSubmit }: SearchBarProps): JSX.Element {
+  const { classes } = useStyles();
   return (
     <InputWrapper className={classes.input} error="User not found" size="md">
       <Input
@@ -24,6 +24,10 @@ function SearchBar() {
         placeholder="Search profile"
         radius="lg"
         size="lg"
+        onChange={(e: ChangeEvent<HTMLInputElement>) =>
+          setSearchInput(e.target.value)
+        }
+        onKeyDown={onSubmit}
       />
     </InputWrapper>
   );

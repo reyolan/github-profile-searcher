@@ -1,15 +1,8 @@
 import { MantineProvider, AppShell } from "@mantine/core";
-import { useEffect } from "react";
+import ContentArea from "./components/ContentArea";
 import Topbar from "./components/Topbar";
-import SearchBar from "./components/SearchBar";
-import ProfileCard from "./components/ProfileCard";
-import "./App.css";
 
-//gawa tayo top bar, which has the title and then upper right may dark mode
-// then sa gitna is may search bar tayo
-// sa baba ng search bar meron tayong card na pinapakita yung information
-
-function App() {
+function App(): JSX.Element {
   return (
     <MantineProvider
       theme={{
@@ -24,9 +17,8 @@ function App() {
       withNormalizeCSS
       withGlobalStyles
     >
-      <AppShell header={<Topbar />}>
-        <SearchBar />
-        <ProfileCard />
+      <AppShell header={<Topbar />} fixed>
+        <ContentArea />
       </AppShell>
     </MantineProvider>
   );

@@ -1,8 +1,13 @@
-const BASE_URL = "https://api.github.com/users";
+export function apiUrl(searchedUser: string) {
+  return {
+    userUrl: `https://api.github.com/users/${searchedUser}`,
+    repoUrl: `https://api.github.com/users/${searchedUser}/repos`,
+  };
+}
 
-async function postRequest(searchedUser: string): Promise<any> {
+async function getRequest(url: string): Promise<any> {
   try {
-    const response = await fetch(`${BASE_URL}/${searchedUser}`, {
+    const response = await fetch(url, {
       headers: {
         Accept: "application / vnd.github.v3 + json",
       },
@@ -19,4 +24,15 @@ async function postRequest(searchedUser: string): Promise<any> {
   }
 }
 
-export default postRequest;
+export default getRequest;
+
+// getRequest(searchInput).then(res => {
+//   console.log(res);
+//   const { login, followers, public_repos, avatar_url } = res;
+//   setProfileInfo({
+//     username: login,
+//     followers,
+//     publicRepos: public_repos,
+//     avatarUrl: avatar_url,
+//   });
+// });
