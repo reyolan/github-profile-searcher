@@ -5,34 +5,25 @@ export function apiUrl(searchedUser: string) {
   };
 }
 
-async function getRequest(url: string): Promise<any> {
-  try {
-    const response = await fetch(url, {
-      headers: {
-        Accept: "application / vnd.github.v3 + json",
-      },
-    });
-    const data = await response.json();
+async function getRequest(url: string): Promise<Response> {
+  const response = await fetch(url, {
+    headers: {
+      Accept: "application / vnd.github.v3 + json",
+    },
+  });
 
-    if (!response.ok) {
-      throw new Error(`${response.status}: ${response.statusText}`);
-    }
-
-    return data;
-  } catch (error) {
-    console.error(error);
+  if (!response.ok) {
+    throw new Error(`${response.status}: ${response.statusText}`);
   }
+  return response.json();
 }
 
-export default getRequest;
+async function getUserDetails(searchedUser: string) {
+  const url = apiUrl(searchedUser);
+  const promises = [getRequest(url.userUrl), getRequest(url.repoUrl)];
 
-// getRequest(searchInput).then(res => {
-//   console.log(res);
-//   const { login, followers, public_repos, avatar_url } = res;
-//   setProfileInfo({
-//     username: login,
-//     followers,
-//     publicRepos: public_repos,
-//     avatarUrl: avatar_url,
-//   });
-// });
+  const response = await Promise.all(promises);
+  return response;
+}
+
+export default getUserDetails;

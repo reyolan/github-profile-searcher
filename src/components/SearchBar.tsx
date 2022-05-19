@@ -3,9 +3,9 @@ import { Input, createStyles, InputWrapper } from "@mantine/core";
 import { Search } from "tabler-icons-react";
 
 const useStyles = createStyles(theme => ({
-  input: {
+  inputWrapper: {
     maxWidth: "500px",
-    margin: "8px auto",
+    margin: "32px auto",
     textAlign: "center",
   },
 }));
@@ -13,12 +13,21 @@ const useStyles = createStyles(theme => ({
 type SearchBarProps = {
   setSearchInput: Dispatch<SetStateAction<string>>;
   onSubmit: (e: KeyboardEvent<HTMLInputElement>) => void;
+  searchError: string;
 };
 
-function SearchBar({ setSearchInput, onSubmit }: SearchBarProps): JSX.Element {
+function SearchBar({
+  setSearchInput,
+  onSubmit,
+  searchError,
+}: SearchBarProps): JSX.Element {
   const { classes } = useStyles();
   return (
-    <InputWrapper className={classes.input} error="User not found" size="md">
+    <InputWrapper
+      className={classes.inputWrapper}
+      error={searchError}
+      size="md"
+    >
       <Input
         icon={<Search size={18} strokeWidth={2} color={"black"} />}
         placeholder="Search profile"

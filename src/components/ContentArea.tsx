@@ -1,9 +1,10 @@
 import { useState, KeyboardEvent } from "react";
 import SearchBar from "./SearchBar";
 import ProfileCard from "./ProfileCard";
-import getRequest, { apiUrl } from "../utils/api";
+import getUserDetails from "../utils/api";
+import getFourRecentItem from "../utils/manipulate-data";
 
-export type ProfileCardProps = {
+export type ProfileInfo = {
   username: string;
   followers: number;
   publicRepos: number;
@@ -12,32 +13,39 @@ export type ProfileCardProps = {
 
 function ContentArea(): JSX.Element {
   const [searchInput, setSearchInput] = useState<string>("");
-  const [profileInfo, setProfileInfo] = useState<ProfileCardProps>({
-    username: "",
-    followers: 0,
-    publicRepos: 0,
-    avatarUrl: "",
-  });
+  const [profileInfo, setProfileInfo] = useState<ProfileInfo | null>(null);
+  const [searchError, setSearchError] = useState<string>("");
 
   const onSubmit = (e: KeyboardEvent<HTMLInputElement>): void => {
+    setSearchError("");
     if (e.key === "Enter") {
-      const url = apiUrl(searchInput);
-
-      Promise.all([getRequest(url.userUrl), getRequest(url.repoUrl)]).then(
-        res => console.log(res)
-      );
+      getUserDetails(searchInput)
+        .then((res: any) => {
+          console.log(res);
+          const [userDetails, userRepoDetails] = res;
+          const { login, followers, public_repos, avatar_url } = userDetails;
+          const details = getFourRecentItem(userRepoDetails);
+          console.log(details);
+          setProfileInfo({
+            username: login,
+            followers,
+            publicRepos: public_repos,
+            avatarUrl: avatar_url,
+          });
+          // userRepoDetails.sort((a: string, b: string) => a.date - b.date);
+        })
+        .catch(res => setSearchError("User not found"));
     }
   };
 
   return (
     <div>
-      <SearchBar setSearchInput={setSearchInput} onSubmit={onSubmit} />
-      <ProfileCard
-        username={profileInfo?.username ?? ""}
-        followers={profileInfo?.followers ?? 0}
-        publicRepos={profileInfo?.publicRepos ?? 0}
-        avatarUrl={profileInfo?.avatarUrl ?? ""}
+      <SearchBar
+        setSearchInput={setSearchInput}
+        onSubmit={onSubmit}
+        searchError={searchError}
       />
+      {profileInfo && <ProfileCard profileInfo={profileInfo} />}
     </div>
   );
 }
