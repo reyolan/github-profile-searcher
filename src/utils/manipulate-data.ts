@@ -1,4 +1,6 @@
-export default function getFourRecentItem<T extends { created_at: string }>(
+import { RepoDetailsApiResponse } from "../types";
+
+export function getFourRecentItem<T extends { created_at: string }>(
   repoDetails: T[]
 ) {
   const sortedRepo = repoDetails.sort((a, b) => {
@@ -11,4 +13,10 @@ export default function getFourRecentItem<T extends { created_at: string }>(
     }
   });
   return sortedRepo.slice(0, 4);
+}
+
+export function getRepoNameAndUrl(repos: RepoDetailsApiResponse[]) {
+  return repos.map(repo => {
+    return { htmlUrl: repo.html_url, name: repo.name };
+  });
 }

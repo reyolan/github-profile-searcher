@@ -5,7 +5,7 @@ export function apiUrl(searchedUser: string) {
   };
 }
 
-async function getRequest(url: string): Promise<Response> {
+async function getRequest(url: string): Promise<unknown> {
   const response = await fetch(url, {
     headers: {
       Accept: "application / vnd.github.v3 + json",
@@ -18,12 +18,14 @@ async function getRequest(url: string): Promise<Response> {
   return response.json();
 }
 
-async function getUserDetails(searchedUser: string) {
+function getUserDetails(searchedUser: string) {
   const url = apiUrl(searchedUser);
-  const promises = [getRequest(url.userUrl), getRequest(url.repoUrl)];
+  const promises: [Promise<unknown>, Promise<unknown>] = [
+    getRequest(url.userUrl),
+    getRequest(url.repoUrl),
+  ];
 
-  const response = await Promise.all(promises);
-  return response;
+  return Promise.all(promises);
 }
 
 export default getUserDetails;

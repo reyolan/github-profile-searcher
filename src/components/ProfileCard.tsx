@@ -1,4 +1,4 @@
-import { ProfileInfo } from "./ContentArea";
+import { ProfileInfo, RepoInfo } from "./ContentArea";
 import {
   Text,
   Card,
@@ -8,10 +8,12 @@ import {
   Group,
   Stack,
   SimpleGrid,
+  Anchor,
 } from "@mantine/core";
 
 type ProfileCardProps = {
   profileInfo: ProfileInfo;
+  repoInfo: RepoInfo[];
 };
 
 const useStyles = createStyles(theme => ({
@@ -30,9 +32,12 @@ const useStyles = createStyles(theme => ({
     marginTop: theme.spacing.md,
     marginBottom: theme.spacing.md,
   },
+  fourRepository: {
+    justifyItems: "center",
+  },
 }));
 
-function ProfileCard({ profileInfo }: ProfileCardProps): JSX.Element {
+function ProfileCard({ profileInfo, repoInfo }: ProfileCardProps): JSX.Element {
   const { classes } = useStyles();
   return (
     <Card className={classes.card} shadow="sm">
@@ -44,7 +49,12 @@ function ProfileCard({ profileInfo }: ProfileCardProps): JSX.Element {
           <Image radius={15} src={profileInfo.avatarUrl} alt="Profile Image" />
         </div>
         <Stack justify="space-between">
-          <Text>Username: {profileInfo.username}</Text>
+          <Text>
+            Username:{" "}
+            <Anchor href="https:google.com" target="_blank">
+              {profileInfo.username}
+            </Anchor>
+          </Text>
           <Text>Followers: {profileInfo.followers}</Text>
           <Text>Number of Repositories: {profileInfo.publicRepos}</Text>
         </Stack>
@@ -52,11 +62,12 @@ function ProfileCard({ profileInfo }: ProfileCardProps): JSX.Element {
       <Title className={classes.headerTwo} order={2} align="center">
         4 Most Recent Repositories
       </Title>
-      <SimpleGrid cols={2}>
-        <div>1</div>
-        <div>2</div>
-        <div>3</div>
-        <div>4</div>
+      <SimpleGrid className={classes.fourRepository} cols={2} spacing="xs">
+        {repoInfo.map(repo => (
+          <Anchor href={repo.htmlUrl} target="_blank">
+            {repo.name}
+          </Anchor>
+        ))}
       </SimpleGrid>
     </Card>
   );

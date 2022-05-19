@@ -2,7 +2,12 @@ import { useState, KeyboardEvent } from "react";
 import SearchBar from "./SearchBar";
 import ProfileCard from "./ProfileCard";
 import getUserDetails from "../utils/api";
-import getFourRecentItem from "../utils/manipulate-data";
+import {
+  UserDetailsApiResponse,
+  RepoDetailsApiResponse,
+  UserDetails,
+} from "../types";
+import { getFourRecentItem, getRepoNameAndUrl } from "../utils/manipulate-data";
 
 export type ProfileInfo = {
   username: string;
@@ -11,30 +16,35 @@ export type ProfileInfo = {
   avatarUrl: string;
 };
 
+export type RepoInfo = {
+  htmlUrl: string;
+  name: string;
+};
+
 function ContentArea(): JSX.Element {
   const [searchInput, setSearchInput] = useState<string>("");
   const [profileInfo, setProfileInfo] = useState<ProfileInfo | null>(null);
+  const [repoInfo, setRepoInfo] = useState<RepoInfo[] | null>(null);
   const [searchError, setSearchError] = useState<string>("");
 
   const onSubmit = (e: KeyboardEvent<HTMLInputElement>): void => {
     setSearchError("");
     if (e.key === "Enter") {
       getUserDetails(searchInput)
-        .then((res: any) => {
-          console.log(res);
-          const [userDetails, userRepoDetails] = res;
+        .then(res => {
+          const [userDetails, userRepoDetails] = res as UserDetails;
           const { login, followers, public_repos, avatar_url } = userDetails;
-          const details = getFourRecentItem(userRepoDetails);
-          console.log(details);
           setProfileInfo({
             username: login,
             followers,
             publicRepos: public_repos,
             avatarUrl: avatar_url,
           });
-          // userRepoDetails.sort((a: string, b: string) => a.date - b.date);
+          const fourRecentRepo = getFourRecentItem(userRepoDetails);
+          setRepoInfo(getRepoNameAndUrl(fourRecentRepo));
+          console.log(fourRecentRepo);
         })
-        .catch(res => setSearchError("User not found"));
+        .catch(() => setSearchError("User not found"));
     }
   };
 
@@ -45,7 +55,9 @@ function ContentArea(): JSX.Element {
         onSubmit={onSubmit}
         searchError={searchError}
       />
-      {profileInfo && <ProfileCard profileInfo={profileInfo} />}
+      {profileInfo && repoInfo && (
+        <ProfileCard profileInfo={profileInfo} repoInfo={repoInfo} />
+      )}
     </div>
   );
 }
