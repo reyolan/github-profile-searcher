@@ -1,6 +1,6 @@
 # Github Profile Searcher
 
-[DEMO](http://github-profile-searcher-phi.vercel.app/)
+[DEMO](http://github-profile-searcher-demo.vercel.app/)
 
 ## Description
 
