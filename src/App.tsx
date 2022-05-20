@@ -1,26 +1,42 @@
-import { MantineProvider, AppShell } from "@mantine/core";
+import {
+  MantineProvider,
+  AppShell,
+  ColorSchemeProvider,
+  ColorScheme,
+} from "@mantine/core";
+import { useState } from "react";
 import ContentArea from "./components/ContentArea";
 import Topbar from "./components/Topbar";
 
 function App(): JSX.Element {
+  const [colorScheme, setColorScheme] = useState<ColorScheme>("light");
+  const toggleColorScheme = (value?: ColorScheme) =>
+    setColorScheme(value || (colorScheme === "dark" ? "light" : "dark"));
+
   return (
-    <MantineProvider
-      theme={{
-        colorScheme: "light",
-        headings: {
-          sizes: {
-            h1: { fontSize: "24px" },
-            h2: { fontSize: "17px" },
-          },
-        },
-      }}
-      withNormalizeCSS
-      withGlobalStyles
+    <ColorSchemeProvider
+      colorScheme={colorScheme}
+      toggleColorScheme={toggleColorScheme}
     >
-      <AppShell header={<Topbar />} fixed>
-        <ContentArea />
-      </AppShell>
-    </MantineProvider>
+      <MantineProvider
+        theme={{
+          colorScheme: colorScheme,
+          headings: {
+            sizes: {
+              h1: { fontSize: "24px" },
+              h2: { fontSize: "17px" },
+            },
+          },
+          primaryColor: "blue",
+        }}
+        withNormalizeCSS
+        withGlobalStyles
+      >
+        <AppShell header={<Topbar />} fixed>
+          <ContentArea />
+        </AppShell>
+      </MantineProvider>
+    </ColorSchemeProvider>
   );
 }
 

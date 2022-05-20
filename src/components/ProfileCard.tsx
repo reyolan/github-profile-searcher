@@ -51,7 +51,7 @@ function ProfileCard({ profileInfo, repoInfo }: ProfileCardProps): JSX.Element {
         <Stack justify="space-between">
           <Text>
             Username:{" "}
-            <Anchor href="https:google.com" target="_blank">
+            <Anchor href={profileInfo.htmlUrl} target="_blank">
               {profileInfo.username}
             </Anchor>
           </Text>
