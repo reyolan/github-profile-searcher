@@ -1,20 +1,8 @@
-import { ProfileInfo, RepoInfo } from "./ContentArea";
-import {
-  Text,
-  Card,
-  createStyles,
-  Title,
-  Image,
-  Group,
-  Stack,
-  SimpleGrid,
-  Anchor,
-} from "@mantine/core";
+import RepoDetails, { RepoDetailsProps } from "./RepoDetails";
+import ProfileDetails, { ProfileDetailsProps } from "./ProfileDetails";
+import { Card, createStyles } from "@mantine/core";
 
-type ProfileCardProps = {
-  profileInfo: ProfileInfo;
-  repoInfo: RepoInfo[];
-};
+type ProfileCardProps = RepoDetailsProps & ProfileDetailsProps;
 
 const useStyles = createStyles(theme => ({
   card: {
@@ -22,53 +10,14 @@ const useStyles = createStyles(theme => ({
     margin: "auto",
     padding: theme.spacing.md,
   },
-  imageWrapper: {
-    width: "220px",
-  },
-  headerOne: {
-    marginBottom: theme.spacing.md,
-  },
-  headerTwo: {
-    marginTop: theme.spacing.md,
-    marginBottom: theme.spacing.md,
-  },
-  fourRepository: {
-    justifyItems: "center",
-  },
 }));
 
 function ProfileCard({ profileInfo, repoInfo }: ProfileCardProps): JSX.Element {
   const { classes } = useStyles();
   return (
     <Card className={classes.card} shadow="sm">
-      <Title className={classes.headerOne} order={1} align="center">
-        Github Profile
-      </Title>
-      <Group>
-        <div className={classes.imageWrapper}>
-          <Image radius={15} src={profileInfo.avatarUrl} alt="Profile Image" />
-        </div>
-        <Stack justify="space-between" spacing="md">
-          <Text>
-            Username:{" "}
-            <Anchor href={profileInfo.htmlUrl} target="_blank">
-              {profileInfo.username}
-            </Anchor>
-          </Text>
-          <Text>Followers: {profileInfo.followers}</Text>
-          <Text>Public Repositories: {profileInfo.publicRepos}</Text>
-        </Stack>
-      </Group>
-      <Title className={classes.headerTwo} order={2} align="center">
-        4 Most Recent Repositories
-      </Title>
-      <SimpleGrid className={classes.fourRepository} cols={2} spacing="xs">
-        {repoInfo.map((repo, i: number) => (
-          <Anchor href={repo.htmlUrl} key={i} target="_blank" align="center">
-            {repo.name}
-          </Anchor>
-        ))}
-      </SimpleGrid>
+      <ProfileDetails profileInfo={profileInfo} />
+      <RepoDetails repoInfo={repoInfo} />
     </Card>
   );
 }

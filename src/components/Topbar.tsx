@@ -18,6 +18,12 @@ const useStyles = createStyles(theme => ({
   },
   actionIcon: {
     borderColor: theme.colorScheme === "dark" ? theme.colors.dark[0] : "black",
+    "&:hover": {
+      backgroundColor:
+        theme.colorScheme === "dark"
+          ? theme.colors.gray[7]
+          : theme.colors.dark[0],
+    },
   },
 }));
 
