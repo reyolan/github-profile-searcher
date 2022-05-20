@@ -1,4 +1,5 @@
 import { useState, KeyboardEvent } from "react";
+import { Center, Loader } from "@mantine/core";
 import SearchBar from "./SearchBar";
 import ProfileCard from "./ProfileCard";
 import getUserDetails from "../utils/api";
@@ -24,13 +25,16 @@ function ContentArea(): JSX.Element {
   const [searchInput, setSearchInput] = useState("");
   const [profileInfo, setProfileInfo] = useState<ProfileInfo | null>(null);
   const [repoInfo, setRepoInfo] = useState<RepoInfo[] | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
   const [searchError, setSearchError] = useState<SearchError>("");
 
   const onSubmit = (e: KeyboardEvent<HTMLInputElement>): void => {
     setSearchError("");
     if (e.key === "Enter") {
+      setIsLoading(true);
       getUserDetails(searchInput)
         .then(res => {
+          console.log(res);
           const [userDetails, userRepoDetails] = res as UserDetails;
           const { login, followers, public_repos, avatar_url, html_url } =
             userDetails;
@@ -43,13 +47,13 @@ function ContentArea(): JSX.Element {
           });
           const fourRecentRepo = getFourRecentItem(userRepoDetails);
           setRepoInfo(getRepoNameAndUrl(fourRecentRepo));
-          console.log(fourRecentRepo);
         })
         .catch(() => {
           setSearchError("User not found");
           setProfileInfo(null);
           setRepoInfo(null);
-        });
+        })
+        .finally(() => setIsLoading(false));
     }
   };
 
@@ -60,8 +64,15 @@ function ContentArea(): JSX.Element {
         onSubmit={onSubmit}
         searchError={searchError}
       />
-      {profileInfo && repoInfo && (
-        <ProfileCard profileInfo={profileInfo} repoInfo={repoInfo} />
+      {isLoading ? (
+        <Center>
+          <Loader size={36} />
+        </Center>
+      ) : (
+        profileInfo &&
+        repoInfo && (
+          <ProfileCard profileInfo={profileInfo} repoInfo={repoInfo} />
+        )
       )}
     </div>
   );

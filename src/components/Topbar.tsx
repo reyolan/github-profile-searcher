@@ -1,7 +1,6 @@
 import {
   Header,
   Title,
-  Button,
   createStyles,
   useMantineTheme,
   ActionIcon,
@@ -16,6 +15,9 @@ const useStyles = createStyles(theme => ({
     justifyContent: "space-between",
     alignItems: "center",
     padding: theme.spacing.xs,
+  },
+  actionIcon: {
+    borderColor: theme.colorScheme === "dark" ? theme.colors.dark[0] : "black",
   },
 }));
 
@@ -37,6 +39,7 @@ function Topbar(): JSX.Element {
         Github Profile Search
       </Title>
       <ActionIcon
+        className={classes.actionIcon}
         variant="outline"
         color={colorScheme === "dark" ? "black" : theme.colors.dark[0]}
         title="Toggle light and dark mode"

@@ -48,7 +48,7 @@ function ProfileCard({ profileInfo, repoInfo }: ProfileCardProps): JSX.Element {
         <div className={classes.imageWrapper}>
           <Image radius={15} src={profileInfo.avatarUrl} alt="Profile Image" />
         </div>
-        <Stack justify="space-between">
+        <Stack justify="space-between" spacing="md">
           <Text>
             Username:{" "}
             <Anchor href={profileInfo.htmlUrl} target="_blank">
@@ -56,15 +56,15 @@ function ProfileCard({ profileInfo, repoInfo }: ProfileCardProps): JSX.Element {
             </Anchor>
           </Text>
           <Text>Followers: {profileInfo.followers}</Text>
-          <Text>Number of Repositories: {profileInfo.publicRepos}</Text>
+          <Text>Public Repositories: {profileInfo.publicRepos}</Text>
         </Stack>
       </Group>
       <Title className={classes.headerTwo} order={2} align="center">
         4 Most Recent Repositories
       </Title>
       <SimpleGrid className={classes.fourRepository} cols={2} spacing="xs">
-        {repoInfo.map(repo => (
-          <Anchor href={repo.htmlUrl} target="_blank">
+        {repoInfo.map((repo, i: number) => (
+          <Anchor href={repo.htmlUrl} key={i} target="_blank" align="center">
             {repo.name}
           </Anchor>
         ))}

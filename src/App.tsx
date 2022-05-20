@@ -1,15 +1,18 @@
+import { useLocalStorage } from "@mantine/hooks";
 import {
   MantineProvider,
   AppShell,
   ColorSchemeProvider,
   ColorScheme,
 } from "@mantine/core";
-import { useState } from "react";
 import ContentArea from "./components/ContentArea";
 import Topbar from "./components/Topbar";
 
 function App(): JSX.Element {
-  const [colorScheme, setColorScheme] = useState<ColorScheme>("light");
+  const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
+    key: "color-scheme",
+    defaultValue: "light",
+  });
   const toggleColorScheme = (value?: ColorScheme) =>
     setColorScheme(value || (colorScheme === "dark" ? "light" : "dark"));
 
@@ -28,6 +31,7 @@ function App(): JSX.Element {
             },
           },
           primaryColor: "blue",
+          loader: "oval",
         }}
         withNormalizeCSS
         withGlobalStyles
