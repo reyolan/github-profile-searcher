@@ -27,7 +27,7 @@ function App(): JSX.Element {
           headings: {
             sizes: {
               h1: { fontSize: "24px" },
-              h2: { fontSize: "17px" },
+              h2: { fontSize: "20px" },
             },
           },
           primaryColor: "blue",
