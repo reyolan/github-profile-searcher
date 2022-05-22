@@ -5,8 +5,8 @@ import {
   ColorSchemeProvider,
   ColorScheme,
 } from "@mantine/core";
-import ContentArea from "./components/ContentArea";
-import Topbar from "./components/Topbar";
+import ContentArea from "./components/ContentArea/ContentArea";
+import Topbar from "./components/Topbar/Topbar";
 
 function App(): JSX.Element {
   const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({

@@ -1,10 +1,13 @@
 import { useState, KeyboardEvent } from "react";
 import { Center, Loader } from "@mantine/core";
-import SearchBar from "./SearchBar";
-import ProfileCard from "./ProfileCard";
-import getUserDetails from "../utils/api";
-import { UserDetails } from "../types";
-import { getFourRecentItem, getRepoNameAndUrl } from "../utils/manipulate-data";
+import SearchBar from "../SearchBar/SearchBar";
+import ProfileCard from "../ProfileCard/ProfileCard";
+import getUserDetails from "../../utils/api";
+import { UserDetails } from "../../types";
+import {
+  getFourRecentItem,
+  getRepoNameAndUrl,
+} from "../../utils/manipulate-data";
 
 export type ProfileInfo = {
   username: string;

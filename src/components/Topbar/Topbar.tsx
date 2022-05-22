@@ -1,31 +1,13 @@
 import {
   Header,
   Title,
-  createStyles,
   useMantineTheme,
   ActionIcon,
   Anchor,
   useMantineColorScheme,
 } from "@mantine/core";
 import { BrandGithub, Sun } from "tabler-icons-react";
-
-const useStyles = createStyles(theme => ({
-  wrapper: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    padding: theme.spacing.xs,
-  },
-  actionIcon: {
-    borderColor: theme.colorScheme === "dark" ? theme.colors.dark[0] : "black",
-    "&:hover": {
-      backgroundColor:
-        theme.colorScheme === "dark"
-          ? theme.colors.gray[7]
-          : theme.colors.dark[0],
-    },
-  },
-}));
+import useStyles from "./Topbar.styles";
 
 function Topbar(): JSX.Element {
   const { classes } = useStyles();

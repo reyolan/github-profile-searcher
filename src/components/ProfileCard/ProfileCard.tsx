@@ -1,16 +1,11 @@
-import RepoDetails, { RepoDetailsProps } from "./RepoDetails";
-import ProfileDetails, { ProfileDetailsProps } from "./ProfileDetails";
-import { Card, createStyles } from "@mantine/core";
+import RepoDetails, { RepoDetailsProps } from "../RepoDetails/RepoDetails";
+import ProfileDetails, {
+  ProfileDetailsProps,
+} from "../ProfileDetails/ProfileDetails";
+import { Card } from "@mantine/core";
+import useStyles from "./ProfileCard.styles";
 
 type ProfileCardProps = RepoDetailsProps & ProfileDetailsProps;
-
-const useStyles = createStyles(theme => ({
-  card: {
-    maxWidth: "500px",
-    margin: "auto",
-    padding: theme.spacing.md,
-  },
-}));
 
 function ProfileCard({ profileInfo, repoInfo }: ProfileCardProps): JSX.Element {
   const { classes } = useStyles();

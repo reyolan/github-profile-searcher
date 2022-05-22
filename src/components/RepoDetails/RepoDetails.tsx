@@ -1,15 +1,6 @@
-import { Title, SimpleGrid, Anchor, createStyles } from "@mantine/core";
-import { RepoInfo } from "./ContentArea";
-
-const useStyles = createStyles(theme => ({
-  headerTwo: {
-    marginTop: theme.spacing.md,
-    marginBottom: theme.spacing.md,
-  },
-  fourRepository: {
-    justifyItems: "center",
-  },
-}));
+import { Title, SimpleGrid, Anchor } from "@mantine/core";
+import { RepoInfo } from "../ContentArea/ContentArea";
+import useStyles from "./RepoDetails.styles";
 
 export type RepoDetailsProps = {
   repoInfo: RepoInfo[];

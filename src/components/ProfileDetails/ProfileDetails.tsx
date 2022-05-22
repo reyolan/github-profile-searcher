@@ -1,26 +1,6 @@
-import { ProfileInfo } from "./ContentArea";
-import {
-  Title,
-  Text,
-  Group,
-  Anchor,
-  Image,
-  Stack,
-  createStyles,
-} from "@mantine/core";
-
-const useStyles = createStyles(theme => ({
-  imageWrapper: {
-    width: "200px",
-  },
-  headerOne: {
-    marginBottom: theme.spacing.md,
-  },
-  spanLabel: {
-    fontWeight: 700,
-    fontSize: theme.fontSizes.md,
-  },
-}));
+import { ProfileInfo } from "../ContentArea/ContentArea";
+import { Title, Text, Group, Anchor, Image, Stack } from "@mantine/core";
+import useStyles from "./ProfileDetails.styles";
 
 export type ProfileDetailsProps = {
   profileInfo: ProfileInfo;

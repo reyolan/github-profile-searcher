@@ -1,14 +1,7 @@
 import { Dispatch, SetStateAction, ChangeEvent, KeyboardEvent } from "react";
-import { Input, createStyles, InputWrapper } from "@mantine/core";
+import { Input, InputWrapper } from "@mantine/core";
 import { Search } from "tabler-icons-react";
-
-const useStyles = createStyles(_theme => ({
-  inputWrapper: {
-    maxWidth: "500px",
-    margin: "32px auto",
-    textAlign: "center",
-  },
-}));
+import useStyles from "./SearchBar.styles";
 
 type SearchBarProps = {
   setSearchInput: Dispatch<SetStateAction<string>>;
