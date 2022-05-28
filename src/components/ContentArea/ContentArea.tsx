@@ -37,7 +37,6 @@ function ContentArea(): JSX.Element {
       setIsLoading(true);
       getUserDetails(searchInput)
         .then(res => {
-          console.log(res);
           const [userDetails, userRepoDetails] = res as UserDetails;
           const { login, followers, public_repos, avatar_url, html_url } =
             userDetails;
